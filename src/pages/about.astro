@@ -5,54 +5,75 @@ import ContactCTA from '../components/ContactCTA.astro';
 import Hero from '../components/Hero.astro';
 ---
 
-<BaseLayout title="About | Jeanine White" description="About Jeanine White Lorem Ipsum">
+<BaseLayout title="About | Jonathen Colon" description="About Jonathen Colon">
 	<div class="stack gap-20">
 		<main class="wrapper about">
 			<Hero
 				title="About"
-				tagline="Thanks for stopping by. Read below to learn more about myself and my background."
+				tagline="I code, design, and play with passion and purpose."
 			>
 				<img
 					width="1553"
 					height="873"
 					src="/assets/at-work.jpg"
-					alt="Jeanine White at work with a colleague"
+					alt="Jonathen Colon and friends"
 				/>
 			</Hero>
 
 			<section>
 				<h2 class="section-title">Background</h2>
 				<div class="content">
-					<p>
-						Lorem ipsum dolor sit amet, <a href="https://astro.build/">Astro</a> makes people happy.
-						Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Proin nibh nisl condimentum
-						id venenatis a condimentum vitae. Dapibus ultrices in iaculis nunc. Arcu odio ut sem nulla
-						pharetra diam sit amet. Diam quis enim lobortis scelerisque fermentum dui faucibus in ornare.
-					</p>
-					<p>
-						Arcu dui vivamus arcu felis bibendum ut tristique et egestas. Eget gravida cum sociis
-						natoque penatibus. Cras fermentum odio eu feugiat pretium nibh. Proin nibh nisl
-						condimentum id venenatis. Porta nibh venenatis cras sed felis eget velit. Id diam vel
-						quam elementum pulvinar etiam non.
-					</p>
-					<p>
-						Ultrices tincidunt arcu non sodales neque sodales ut. Sed enim ut sem viverra aliquet
-						eget sit amet. Lacus luctus accumsan tortor posuere ac ut consequat semper viverra.
-						Viverra accumsan in nisl nisi scelerisque eu ultrices. In massa tempor nec feugiat nisl
-						pretium fusce.
-					</p>
-				</div>
+					<p>My passion for video games was another significant aspect of my early experiences. I spent countless hours gaming, often delving into the settings to optimize performance. The 2011 MacBook Pro was the first machine I truly fell in love with. Gaming on this device introduced me to macOS and Wine, tools I continue to use today on my current Mac and Steam Deck.</p>
+					
+					<p>My fascination with technology led me to the Raspberry Pi, a device that opened up a new world of possibilities. I experimented with its GPIO pins, hosted my own file servers, game servers, and websites, and dove into the depths of Linux. This compact yet powerful device also introduced me to Docker, Git, GitHub, SSH, remote desktop, and the command line. I developed a workflow where I would code on my Mac, push the changes to GitHub, and then pull them onto my Pi.</p>
+					
+					<p>The knowledge and skills I acquired from working with the Pi sparked an interest in other platforms, particularly Windows. I familiarized myself with Windows Remote Desktop, Windows Server, and the Windows command line.</p>
+					
+					<p>Now, my sights are set on game development. I’m learning to use Unity, Unreal Engine, Blender, and Photoshop with the goal of creating my own games. My ultimate dream is to establish my own game company and develop a proprietary game engine. This journey, which started with a child’s curiosity, has evolved into a lifelong passion for technology and its limitless potential.</p>
+					
 			</section>
 			<section>
 				<h2 class="section-title">Education</h2>
 				<div class="content">
-					<p>Corporis voluptates tenetur laudantium.</p>
+					<p>Bristol Community College, Fall River, MA — Associate's Degree in Computer Sci, 2019</p>
+					<p>Diman Reg Voc Tech High School, Fall River, MA  — High School Diploma</p>
 				</div>
 			</section>
 			<section>
 				<h2 class="section-title">Skills</h2>
-				<div class="content">
-					<p>officia unde omnis</p>
+				<div class="content two-columns">
+					<div class="column">
+						<ui>
+							<li>Java</li>
+							<li>Computer Science</li>
+							<li>Android</li>
+							<li>Application Development</li>
+							<li>JavaScript</li>
+							<li>MySQL</li>
+							<li>Mac OS</li>
+							<li>C/C++</li>
+							<li>Equipment Repair</li>
+							<li>Windows</li>
+							<li>SQL</li>
+							<li>GitHub</li>
+						</ui>
+					</div>
+					<div class="column">
+						<ui>
+							<li>Windows Remote Desktop</li>
+							<li>Computer Networking</li>
+							<li>Troubleshooting</li>
+							<li>Technical Support</li>
+							<li>Software Development</li>
+							<li>Software troubleshooting</li>
+							<li>Linux</li>
+							<li>Docker</li>
+							<li>Git</li>
+							<li>HTML</li>
+							<li>CSS</li>
+							<li>PHP</li>
+						</ui>
+					</div>
 				</div>
 			</section>
 		</main>
@@ -62,6 +83,16 @@ import Hero from '../components/Hero.astro';
 </BaseLayout>
 
 <style>
+	.two-columns {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .column {
+    flex: 1;
+    margin: 10px;
+  }
 	.about {
 		display: flex;
 		flex-direction: column;
@@ -101,6 +132,13 @@ import Hero from '../components/Hero.astro';
 	.content :global(a:focus) {
 		text-decoration-color: currentColor;
 	}
+
+	@media (max-width: 600px) {
+    .column {
+      flex-basis: 100%;
+	  margin: 1px;
+    }
+  }
 
 	@media (min-width: 50em) {
 		.about {

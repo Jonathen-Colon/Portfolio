@@ -31,17 +31,17 @@ const projects = (await getCollection('work'))
 			<header class="hero">
 				<Hero
 					title="Hello, my name is Jonathen Colon"
-					tagline="I am a Developer/I.T who is currently based in Fall River, Mass."
+					tagline="I am a Developer/I.T Technician who is currently based in Fall River, Mass."
 					align="start"
 				>
 					<div class="roles">
 						<Pill><Icon icon="code" size="1.33em" /> Developer</Pill>
-						<Pill><Icon icon="computer" size="1.33em" /> I.T Support</Pill>
+						<Pill><Icon icon="computer" size="1.33em" /> I.T Technician</Pill>
 					</div>
 				</Hero>
 
 				<img
-					alt="Jeanine White smiling in a red plaid shirt and tortoise shell glasses"
+					alt="Jonathen Colon - Developer/I.T"
 					width="480"
 					height="620"
 					src="/assets/portrait.jpg"
@@ -78,27 +78,6 @@ const projects = (await getCollection('work'))
 				</div>
 			</section>
 
-			<section class="section with-background bg-variant">
-				<header class="section-header stack gap-2 lg:gap-4">
-					<h3>Mentions</h3>
-					<p>
-						I have been fortunate enough to receive praise for my work in several publications. Take
-						a look below to learn more.
-					</p>
-				</header>
-
-				<div class="gallery">
-					<Grid variant="small">
-						{
-							['Medium', 'BuzzFeed', 'The Next Web', 'awwwards.', 'TechCrunch'].map((brand) => (
-								<li class="mention-card">
-									<p>{brand}</p>
-								</li>
-							))
-						}
-					</Grid>
-				</div>
-			</section>
 		</main>
 
 		<ContactCTA />
