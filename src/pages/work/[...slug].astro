@@ -133,11 +133,23 @@ const { Content } = await entry.render();
 		text-decoration-color: currentColor;
 	}
 
+	@media (max-width: 600px) {
+    .tags {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}
+
 	@media (min-width: 50em) {
 		.back-link {
 			display: block;
 			align-self: flex-start;
 		}
+
+		.tags {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
 
 		.details {
 			flex-direction: row;
