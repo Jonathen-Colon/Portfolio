@@ -2,6 +2,7 @@
   "files.exclude": {
     ".vscode": true,
     ".codesandbox": true,
-    ".astro": true
+    ".astro": true,
+    "node_modules": true
   }
 }
