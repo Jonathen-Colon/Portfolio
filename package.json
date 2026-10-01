@@ -9,6 +9,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "preview:workers": "npm run build && wrangler dev",
+    "deploy": "npm run build && wrangler deploy",
+    "deploy:dry-run": "npm run build && wrangler deploy --dry-run",
     "astro": "astro",
     "start": "astro",
     "convex:dev": "convex dev",
@@ -36,6 +39,7 @@
     "tailwindcss": "^4.2.4"
   },
   "devDependencies": {
-    "@types/dompurify": "^3.0.5"
+    "@types/dompurify": "^3.0.5",
+    "wrangler": "^4.145.0"
   }
 }
