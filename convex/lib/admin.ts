@@ -1,5 +1,6 @@
 import type { GenericMutationCtx, GenericQueryCtx } from "convex/server";
 import type { DataModel } from "../_generated/dataModel";
+import { getAuthUserId } from "@convex-dev/auth/server";
 
 type AuthCtx = GenericMutationCtx<DataModel> | GenericQueryCtx<DataModel>;
 
@@ -16,7 +17,10 @@ export async function requireContentAdmin(ctx: AuthCtx): Promise<void> {
   if (!adminEmail) {
     throw new Error("Unauthorized: ADMIN_EMAIL is not configured.");
   }
-  const userEmail = identity.email?.trim().toLowerCase();
+  // Convex Auth JWTs don't carry an email claim, so read it from the users table.
+  const userId = await getAuthUserId(ctx);
+  const user = userId ? await ctx.db.get(userId) : null;
+  const userEmail = (user?.email ?? identity.email)?.trim().toLowerCase();
   if (!userEmail || userEmail !== adminEmail) {
     throw new Error("Unauthorized: this account cannot edit portfolio content.");
   }
