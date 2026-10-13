@@ -10,7 +10,9 @@ export default defineSchema({
     kind: v.string(),
     body: v.string(),
     submittedAt: v.number(),
-  }).index("by_submitted_at", ["submittedAt"]),
+  })
+    .index("by_submitted_at", ["submittedAt"])
+    .index("by_email_submitted_at", ["email", "submittedAt"]),
 
   projects: defineTable({
     id: v.string(),
