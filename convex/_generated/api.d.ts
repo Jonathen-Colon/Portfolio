@@ -13,6 +13,7 @@ import type * as auth from "../auth.js";
 import type * as contacts from "../contacts.js";
 import type * as http from "../http.js";
 import type * as lib_admin from "../lib/admin.js";
+import type * as lib_normalizeBody from "../lib/normalizeBody.js";
 import type * as posts from "../posts.js";
 import type * as projects from "../projects.js";
 
@@ -28,6 +29,7 @@ declare const fullApi: ApiFromModules<{
   contacts: typeof contacts;
   http: typeof http;
   "lib/admin": typeof lib_admin;
+  "lib/normalizeBody": typeof lib_normalizeBody;
   posts: typeof posts;
   projects: typeof projects;
 }>;
