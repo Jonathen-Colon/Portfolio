@@ -10,6 +10,7 @@ export default defineSchema({
     kind: v.string(),
     body: v.string(),
     submittedAt: v.number(),
+    done: v.optional(v.boolean()),
   })
     .index("by_submitted_at", ["submittedAt"])
     .index("by_email_submitted_at", ["email", "submittedAt"]),

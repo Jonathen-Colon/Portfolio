@@ -66,8 +66,34 @@ export const submitContact = mutation({
 
 export const listContactsAdmin = query({
   args: {},
+  returns: v.array(
+    v.object({
+      _id: v.id("contacts"),
+      _creationTime: v.number(),
+      name: v.string(),
+      email: v.string(),
+      kind: v.string(),
+      body: v.string(),
+      submittedAt: v.number(),
+      done: v.optional(v.boolean()),
+    }),
+  ),
   handler: async (ctx) => {
     await requireContentAdmin(ctx);
     return await ctx.db.query("contacts").withIndex("by_submitted_at").order("desc").take(250);
+  },
+});
+
+export const setContactDone = mutation({
+  args: { id: v.id("contacts"), done: v.boolean() },
+  returns: v.null(),
+  handler: async (ctx, args) => {
+    await requireContentAdmin(ctx);
+    const row = await ctx.db.get(args.id);
+    if (!row) {
+      throw new Error("Message not found.");
+    }
+    await ctx.db.patch(args.id, { done: args.done });
+    return null;
   },
 });
