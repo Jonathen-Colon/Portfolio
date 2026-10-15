@@ -20,13 +20,27 @@ export function paragraphsToHtml(paragraphs: string[]): string {
     .join("");
 }
 
+const HTML_TAG_RE = /<\s*\/?\s*(p|br|strong|b|em|i|s|strike|a|ul|ol|li|h[1-3]|blockquote|pre|code|img|span)(\s[^>]*)?\/?>/i;
+
+/**
+ * Paragraph arrays. Older saves split editor HTML into string[] chunks that still contain
+ * inline markup (<strong>, <a>, <img>, lists); treat those chunks as HTML (sanitized later)
+ * instead of escaping them. Plain-text paragraphs are still escaped.
+ */
+function legacyParagraphsToHtml(paragraphs: string[]): string {
+  if (!paragraphs.some((t) => HTML_TAG_RE.test(t))) return paragraphsToHtml(paragraphs);
+  return paragraphs
+    .map((t) => (HTML_TAG_RE.test(t) ? (/^\s*<(ul|ol|h[1-3]|blockquote|pre|img)\b/i.test(t) ? t : `<p>${t}</p>`) : `<p>${escapeHtml(t).replace(/\n/g, "<br />")}</p>`))
+    .join("");
+}
+
 export function bodyToHtmlForEditor(body: string[] | string | undefined): string {
   if (body === undefined || body === null) return "<p></p>";
   if (typeof body === "string") {
     const t = body.trim();
     return t ? body : "<p></p>";
   }
-  return paragraphsToHtml(body);
+  return legacyParagraphsToHtml(body);
 }
 
 function isEmptyBodyHtml(html: string): boolean {
@@ -84,6 +98,6 @@ export function sanitizePortfolioBodyHtml(html: string): string {
  */
 export function bodyToDisplayHtml(body: string[] | string | undefined): string {
   if (body === undefined || body === null) return "";
-  const raw = typeof body === "string" ? body : paragraphsToHtml(body);
+  const raw = typeof body === "string" ? body : legacyParagraphsToHtml(body);
   return sanitizePortfolioBodyHtml(raw);
 }

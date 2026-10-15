@@ -2,7 +2,7 @@
  * Posts/projects store body as string[] (one paragraph per entry).
  * Accepts a single string: plain multi-line text, or HTML with <p>...</p> blocks.
  */
-export function normalizeBody(body: string | string[] | undefined): string[] {
+export function normalizeBody(body: string | string[] | undefined): string[] | string {
   if (body === undefined) return [];
   if (Array.isArray(body)) {
     return body
@@ -13,12 +13,11 @@ export function normalizeBody(body: string | string[] | undefined): string[] {
   const s = body.trim();
   if (!s) return [];
 
-  const looksLikeParagraphHtml = /<\s*p(?:\s|>)/i.test(s) && /<\s*\/\s*p\s*>/i.test(s);
-  if (looksLikeParagraphHtml) {
-    return s
-      .split(/<\s*\/\s*p\s*>/i)
-      .map((chunk) => chunk.replace(/<\s*p[^>]*>/gi, "").trim())
-      .filter(Boolean);
+  // Rich HTML from the admin TipTap editor: keep it as a single HTML string so inline
+  // marks, links, lists and images survive. (Splitting into string[] made the site
+  // render it as escaped plain text.) It is sanitized with DOMPurify when displayed.
+  if (/<\s*[a-z][a-z0-9]*(?:\s[^>]*)?\/?>/i.test(s)) {
+    return s;
   }
 
   return s
