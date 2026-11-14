@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Post } from '../../data/portfolioContent';
 import { ThumbPost } from './Thumbnails';
+import { PROFILE_DEFAULTS, pick, type Profile } from '../../data/profile';
 
 function EmptyDevlog({ message }: { message: string }) {
   return (
@@ -16,7 +17,7 @@ function EmptyDevlog({ message }: { message: string }) {
   );
 }
 
-export function BlogPage({ openPost, posts }: { openPost: (p: Post) => void; posts: Post[] }) {
+export function BlogPage({ openPost, posts, profile = null }: { openPost: (p: Post) => void; posts: Post[]; profile?: Profile | null }) {
   return (
     <section className="section page">
       <div className="wrap">
@@ -25,7 +26,7 @@ export function BlogPage({ openPost, posts }: { openPost: (p: Post) => void; pos
             <div className="section-num">04 / devlog</div>
             <h2 className="section-title display">Devlog</h2>
             <p style={{ maxWidth: 540, color: 'var(--ink-soft)', margin: '14px 0 0' }}>
-              Short posts about what I'm making and why. Unfiltered.
+              {pick(profile?.intros.devlog, PROFILE_DEFAULTS.intros.devlog)}
             </p>
           </div>
           <div style={{ display: 'flex', gap: 10 }}>

@@ -30,3 +30,8 @@ pnpm-debug.log*
 
 # Convex local AI helper state (optional)
 convex/_generated/ai/
+
+# EmDash local database and media
+data.db
+data.db-*
+uploads/

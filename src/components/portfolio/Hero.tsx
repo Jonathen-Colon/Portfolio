@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { PROFILE_DEFAULTS, pick, type Profile } from '../../data/profile';
+
+const DEFAULT_PHRASES = ['interactive prototypes!', 'devlogs & games!', 'chunky websites!', 'things that click!', 'pixel art at 2 a.m.!'];
 
 function HeroBackdrop() {
   return (
@@ -21,15 +24,17 @@ export function Hero({
   webProjectCount,
   gameProjectCount,
   postCount,
+  profile = null,
 }: {
   go: (id: string) => void;
   webProjectCount: number;
   gameProjectCount: number;
   postCount: number;
+  profile?: Profile | null;
 }) {
   const phrases = useMemo(
-    () => ['interactive prototypes!', 'devlogs & games!', 'chunky websites!', 'things that click!', 'pixel art at 2 a.m.!'],
-    []
+    () => (profile?.heroPhrases.length ? profile.heroPhrases : DEFAULT_PHRASES),
+    [profile]
   );
   const longestPhrase = useMemo(
     () => phrases.reduce((a, b) => (a.length >= b.length ? a : b), phrases[0] ?? ''),
@@ -105,9 +110,9 @@ export function Hero({
                   boxShadow: '0 0 0 2px #141414',
                 }}
               />{' '}
-              Available May
+              {profile?.availability || 'Available May'}
             </span>
-            <span className="pill">Southern MA</span>
+            <span className="pill">{pick(profile?.location, PROFILE_DEFAULTS.location)}</span>
           </div>
           <h1 className="hero-title display">
             <span className="word">Jon</span> <span className="word accent">Colon</span>
@@ -115,7 +120,7 @@ export function Hero({
             <span className="word outline">makes</span> <span className="word">stuff.</span>
           </h1>
           <p className="hero-sub">
-            Designer, developer and part-time game dev. Currently making{' '}
+            {pick(profile?.heroTagline, PROFILE_DEFAULTS.heroTagline)} Currently making{' '}
             <span className="hero-typing-slot">
               <span className="typing typing-measure" aria-hidden="true">
                 {longestPhrase}

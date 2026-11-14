@@ -1,0 +1,2931 @@
+{
+  "$schema": "https://emdashcms.com/seed.schema.json",
+  "version": "1",
+  "meta": {
+    "name": "joncolon.dev",
+    "description": "Portfolio: projects, devlog, and profile",
+    "author": "Jon Colon"
+  },
+  "settings": {
+    "title": "Jon Colon",
+    "tagline": "Designer, developer and part-time game dev."
+  },
+  "collections": [
+    {
+      "slug": "projects",
+      "label": "Projects",
+      "labelSingular": "Project",
+      "description": "Web and game work shown on /web, /games and the home page",
+      "icon": "briefcase",
+      "supports": [
+        "drafts",
+        "revisions"
+      ],
+      "routable": true,
+      "titleField": "title",
+      "admin": {
+        "listColumns": [
+          "kind",
+          "year",
+          "sort_order"
+        ]
+      },
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "kind",
+          "label": "Kind",
+          "type": "select",
+          "required": true,
+          "indexed": true,
+          "defaultValue": "web",
+          "validation": {
+            "options": [
+              "web",
+              "game"
+            ]
+          }
+        },
+        {
+          "slug": "year",
+          "label": "Year",
+          "type": "string"
+        },
+        {
+          "slug": "role",
+          "label": "Role",
+          "type": "string"
+        },
+        {
+          "slug": "summary",
+          "label": "Summary",
+          "type": "text",
+          "required": true
+        },
+        {
+          "slug": "thumbnail",
+          "label": "Thumbnail",
+          "type": "image"
+        },
+        {
+          "slug": "accent",
+          "label": "Accent color",
+          "type": "select",
+          "defaultValue": "cobalt",
+          "validation": {
+            "options": [
+              "red",
+              "cobalt",
+              "sun",
+              "lime",
+              "plum",
+              "mint"
+            ]
+          }
+        },
+        {
+          "slug": "tags",
+          "label": "Tags",
+          "type": "repeater",
+          "validation": {
+            "subFields": [
+              {
+                "slug": "label",
+                "label": "Tag",
+                "type": "string",
+                "required": true
+              }
+            ]
+          }
+        },
+        {
+          "slug": "body",
+          "label": "Body",
+          "type": "portableText"
+        },
+        {
+          "slug": "live",
+          "label": "Live site URL",
+          "type": "url"
+        },
+        {
+          "slug": "repo",
+          "label": "GitHub URL",
+          "type": "url"
+        },
+        {
+          "slug": "itch",
+          "label": "itch.io URL",
+          "type": "url"
+        },
+        {
+          "slug": "sort_order",
+          "label": "Sort order (lower first)",
+          "type": "integer",
+          "indexed": true,
+          "defaultValue": 100
+        }
+      ]
+    },
+    {
+      "slug": "posts",
+      "label": "Devlog",
+      "labelSingular": "Devlog post",
+      "description": "Posts on /devlog and the home page teaser",
+      "icon": "notebook",
+      "supports": [
+        "drafts",
+        "revisions",
+        "search"
+      ],
+      "routable": true,
+      "titleField": "title",
+      "dateField": "posted_on",
+      "admin": {
+        "listColumns": [
+          "posted_on",
+          "tag"
+        ]
+      },
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true,
+          "searchable": true
+        },
+        {
+          "slug": "posted_on",
+          "label": "Date",
+          "type": "datetime",
+          "required": true,
+          "indexed": true
+        },
+        {
+          "slug": "tag",
+          "label": "Tag",
+          "type": "select",
+          "defaultValue": "Devlog",
+          "validation": {
+            "options": [
+              "Devlog",
+              "Design",
+              "Code",
+              "Meta",
+              "web"
+            ]
+          }
+        },
+        {
+          "slug": "excerpt",
+          "label": "Excerpt",
+          "type": "text",
+          "required": true,
+          "searchable": true
+        },
+        {
+          "slug": "read_time",
+          "label": "Read time",
+          "type": "string",
+          "defaultValue": "5 min"
+        },
+        {
+          "slug": "body",
+          "label": "Body",
+          "type": "portableText",
+          "searchable": true
+        }
+      ]
+    },
+    {
+      "slug": "profile",
+      "label": "Profile",
+      "labelSingular": "Profile",
+      "description": "One entry: hero, about, call to action and resume",
+      "icon": "user-circle",
+      "routable": false,
+      "supports": [
+        "drafts",
+        "revisions",
+        "no-scheduling"
+      ],
+      "titleField": "name",
+      "admin": {
+        "quickCreate": false
+      },
+      "fields": [
+        {
+          "slug": "name",
+          "label": "Name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "availability",
+          "label": "Availability badge",
+          "type": "string"
+        },
+        {
+          "slug": "location",
+          "label": "Location",
+          "type": "string"
+        },
+        {
+          "slug": "hero_phrases",
+          "label": "Hero typing phrases",
+          "type": "repeater",
+          "validation": {
+            "subFields": [
+              {
+                "slug": "text",
+                "label": "Phrase",
+                "type": "string",
+                "required": true
+              }
+            ]
+          }
+        },
+        {
+          "slug": "about_intro",
+          "label": "About intro",
+          "type": "text"
+        },
+        {
+          "slug": "about_facts",
+          "label": "About facts",
+          "type": "repeater",
+          "validation": {
+            "subFields": [
+              {
+                "slug": "label",
+                "label": "Label",
+                "type": "string",
+                "required": true
+              },
+              {
+                "slug": "value",
+                "label": "Value",
+                "type": "string",
+                "required": true
+              }
+            ]
+          }
+        },
+        {
+          "slug": "portrait",
+          "label": "Portrait photo",
+          "type": "image"
+        },
+        {
+          "slug": "cta_eyebrow",
+          "label": "CTA eyebrow",
+          "type": "string"
+        },
+        {
+          "slug": "cta_body",
+          "label": "CTA text",
+          "type": "text"
+        },
+        {
+          "slug": "resume_work",
+          "label": "Resume: work",
+          "type": "repeater",
+          "validation": {
+            "subFields": [
+              {
+                "slug": "title",
+                "label": "Title",
+                "type": "string",
+                "required": true
+              },
+              {
+                "slug": "org",
+                "label": "Organization",
+                "type": "string"
+              },
+              {
+                "slug": "years",
+                "label": "Years",
+                "type": "string"
+              },
+              {
+                "slug": "tag",
+                "label": "Tag",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        {
+          "slug": "resume_education",
+          "label": "Resume: education",
+          "type": "repeater",
+          "validation": {
+            "subFields": [
+              {
+                "slug": "title",
+                "label": "Title",
+                "type": "string",
+                "required": true
+              },
+              {
+                "slug": "org",
+                "label": "School",
+                "type": "string"
+              },
+              {
+                "slug": "years",
+                "label": "Year",
+                "type": "string"
+              },
+              {
+                "slug": "tag",
+                "label": "Tag",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        {
+          "slug": "skills",
+          "label": "Skills",
+          "type": "repeater",
+          "validation": {
+            "subFields": [
+              {
+                "slug": "name",
+                "label": "Skill",
+                "type": "string",
+                "required": true
+              }
+            ]
+          }
+        },
+        {
+          "slug": "resume_pdf",
+          "label": "Resume PDF",
+          "type": "file",
+          "validation": {
+            "allowedMimeTypes": [
+              "application/pdf"
+            ]
+          }
+        },
+        {
+          "slug": "hero_tagline",
+          "label": "Hero tagline (before typing phrases)",
+          "type": "string"
+        },
+        {
+          "slug": "marquee_items",
+          "label": "Home marquee strip",
+          "type": "repeater",
+          "validation": {
+            "subFields": [
+              {
+                "slug": "text",
+                "label": "Item",
+                "type": "string",
+                "required": true
+              }
+            ]
+          }
+        },
+        {
+          "slug": "intro_web",
+          "label": "Intro: Web page",
+          "type": "text"
+        },
+        {
+          "slug": "intro_games",
+          "label": "Intro: Games page",
+          "type": "text"
+        },
+        {
+          "slug": "intro_devlog",
+          "label": "Intro: Devlog page",
+          "type": "text"
+        },
+        {
+          "slug": "intro_contact",
+          "label": "Intro: Contact page",
+          "type": "text"
+        },
+        {
+          "slug": "contact_email",
+          "label": "Contact email (also receives the contact form)",
+          "type": "string"
+        },
+        {
+          "slug": "contact_notes",
+          "label": "Contact page notes (one per line)",
+          "type": "text"
+        },
+        {
+          "slug": "social_links",
+          "label": "Social links",
+          "type": "repeater",
+          "validation": {
+            "subFields": [
+              {
+                "slug": "label",
+                "label": "Label",
+                "type": "string",
+                "required": true
+              },
+              {
+                "slug": "handle",
+                "label": "Handle",
+                "type": "string"
+              },
+              {
+                "slug": "url",
+                "label": "URL",
+                "type": "url",
+                "required": true
+              }
+            ]
+          }
+        },
+        {
+          "slug": "footer_headline",
+          "label": "Footer headline (one line break allowed)",
+          "type": "text"
+        },
+        {
+          "slug": "footer_note",
+          "label": "Footer note",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "content": {
+    "projects": [
+      {
+        "id": "project-tda",
+        "slug": "tda",
+        "status": "published",
+        "data": {
+          "title": "Taunton Dental Associates",
+          "kind": "web",
+          "year": "2025",
+          "role": "Dev and Designer",
+          "summary": "A look at the design and development behind Taunton Dental Associates' new website — built with Next.js, powered by Cloudflare R2, and crafted to turn a local dental practice into a polished digital experience.",
+          "accent": "cobalt",
+          "tags": [
+            {
+              "label": "Next.js"
+            },
+            {
+              "label": "shad-cn"
+            },
+            {
+              "label": "tailwind"
+            },
+            {
+              "label": "vercel"
+            },
+            {
+              "label": "cloudflare"
+            }
+          ],
+          "body": [
+            {
+              "_type": "block",
+              "_key": "cx00001",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00002",
+                  "text": "Building Taunton Dental Associates: A Modern Web Experience for a Local Practice",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00003",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00004",
+                  "text": "When approaching the build for Taunton Dental Associates, the goal was clear — take a well-established local practice and give it a digital presence that matched the quality of care they deliver in person. That meant clean design, fast performance, and a codebase that's easy to maintain long-term.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00005",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00006",
+                  "text": "Next.js as the Foundation",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00007",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00008",
+                  "text": "The site is built on Next.js, leveraging its App Router for clean, file-based routing. Each page — /team, /forms, /faqs, /smile-analysis — lives as its own route, keeping the architecture organized and scalable. Server-side rendering ensures pages load fast and are crawlable by search engines out of the box, which matters a lot for a local business competing for visibility.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00009",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0000a",
+                  "text": "Cloudflare R2 for Media",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx0000b",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0000c",
+                  "text": "One of the more deliberate infrastructure decisions was using Cloudflare R2 to host all media assets. Staff portraits, building photography, and hero images are all served from r2.tauntondentalassociates.com. Compared to traditional S3 + CloudFront setups, R2 eliminates egress fees entirely while still delivering assets through Cloudflare's global edge network. For an image-heavy site like this, that's a meaningful cost and performance win.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx0000d",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0000e",
+                  "text": "Design Decisions",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx0000f",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00010",
+                  "text": "The UI was built to feel warm and trustworthy without being sterile — a common pitfall with healthcare sites. The logo is served as an inline SVG, keeping it crisp at every screen size and avoiding an unnecessary image request. The photo gallery and testimonial carousel use lightweight interaction logic, keeping the JavaScript footprint small and the experience smooth across devices.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00011",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00012",
+                  "text": "Typography, spacing, and color choices were intentional — guiding the visitor's eye from the hero section down through the team, services, and ultimately to a booking CTA. Every section has a job.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00013",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00014",
+                  "text": "SEO & Performance",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00015",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00016",
+                  "text": "With Next.js handling SSR and Cloudflare sitting in front of the assets, the site is well-positioned for Core Web Vitals. Images are hosted on a subdomain with proper caching, routes are pre-renderable, and there's no bloated third-party UI framework adding unnecessary weight to the bundle.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00017",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00018",
+                  "text": "The Bottom Line",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00019",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0001a",
+                  "text": "Building for a local business means every decision has real stakes — this is someone's livelihood. The stack behind Taunton Dental Associates reflects that. It's purposeful, performant, and built to grow with the practice.",
+                  "marks": []
+                }
+              ]
+            }
+          ],
+          "sort_order": 10,
+          "live": "https://www.tauntondentalassociates.com/",
+          "thumbnail": {
+            "$media": {
+              "url": "https://r2.tauntondentalassociates.com/Building/OutsidePhoto1.png",
+              "alt": "Taunton Dental Associates",
+              "filename": "OutsidePhoto1.png"
+            }
+          }
+        }
+      },
+      {
+        "id": "project-pows",
+        "slug": "pows",
+        "status": "published",
+        "data": {
+          "title": "Primo on Water Street",
+          "kind": "web",
+          "year": "2023",
+          "role": "Design",
+          "summary": "A warm, eclectic Italian-American restaurant website that balances family dining energy with weekend nightlife all in one cohesive design.",
+          "accent": "cobalt",
+          "tags": [
+            {
+              "label": "Web Design"
+            },
+            {
+              "label": "Squarespace"
+            },
+            {
+              "label": "UI Design"
+            },
+            {
+              "label": "Branding"
+            },
+            {
+              "label": "Restaurant Website"
+            },
+            {
+              "label": "Web Development"
+            },
+            {
+              "label": "Site Build"
+            }
+          ],
+          "body": [
+            {
+              "_type": "block",
+              "_key": "cx0001b",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0001c",
+                  "text": "Why I Built It This Way",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx0001d",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0001e",
+                  "text": "When I took on Primo on Water Street, the challenge was clear — this isn't just a restaurant. It's a dining room, a nightlife venue, a private party space, and a bartending school all under one roof. The site had to communicate all of that without feeling scattered or overwhelming. Every design decision I made came back to one question: does this feel like Primo?",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx0001f",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00020",
+                  "text": "The Hero — Three Panels Instead of One",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00021",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00022",
+                  "text": "The first big call I made was ditching the standard single full-width hero. Instead I went with three side-by-side image tiles, each representing a different arm of the brand — the restaurant, the Party with Primo events brand, and the Bartending School. I wanted visitors to immediately understand the full picture without having to scroll for it. You land on the page and within two seconds you know exactly what this place is about.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00023",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00024",
+                  "text": "The Marquee",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00025",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00026",
+                  "text": "I added a repeating ticker — \"Primo's Party with a Purpose •\" — running across the page as a subtle but effective energy builder. It keeps the eye moving, reinforces the brand tagline, and adds personality without taking up real estate. Small detail, big impact.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00027",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00028",
+                  "text": "Color, Mood, and Photography",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00029",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0002a",
+                  "text": "I leaned into dark, warm tones throughout — deep backgrounds, rich food photography, moody venue shots. This was intentional. Primo comes alive at night, and I wanted the site to feel that way even at noon. The photography does a lot of the heavy lifting here and I made sure every image selection matched that same intimate, candid energy.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx0002b",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0002c",
+                  "text": "Typography",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx0002d",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0002e",
+                  "text": "Big bold display headings, clean readable body copy. I wanted the headings to feel confident and festive — like the restaurant itself — while the body copy stays out of the way and lets the content breathe. The contrast between the two keeps the hierarchy sharp throughout every section.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx0002f",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00030",
+                  "text": "Navigation",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00031",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00032",
+                  "text": "With this many offerings I had to make the nav work hard. Menu, Specials, Events, Private Parties, Catering, Bartending School, Gift Cards, Contact — all up top, plus a persistent \"Order Now\" CTA that links directly to their Toast ordering system. That button stays visible no matter where you are on the page because that's the conversion that matters most.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00033",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00034",
+                  "text": "The Content Cards",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00035",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00036",
+                  "text": "Lower on the page I used a consistent card structure — image, headline, short description, CTA — for each offering. It keeps the page scannable and gives every section equal weight. The pattern is familiar enough that users never feel lost, but the photography and copy make each card feel distinct.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00037",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00038",
+                  "text": "What I'm Most Proud Of",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00039",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0003a",
+                  "text": "The cohesion. The writing, the layout, the imagery, and the color all tell the same story from top to bottom. That's the hardest thing to pull off and the first thing people feel even if they can't name it.",
+                  "marks": []
+                }
+              ]
+            }
+          ],
+          "sort_order": 20,
+          "live": "https://www.primoonwaterstreet.com/",
+          "thumbnail": {
+            "$media": {
+              "url": "https://images.squarespace-cdn.com/content/65b142d6d7ce064b550ea905/c5bf0d20-15c7-4679-aa88-78a210468e2c/patio.jpg?content-type=image%2Fjpeg",
+              "alt": "Primo on Water Street",
+              "filename": "patio.jpg"
+            }
+          }
+        }
+      },
+      {
+        "id": "project-pwp",
+        "slug": "pwp",
+        "status": "published",
+        "data": {
+          "title": "Party With Primo",
+          "kind": "web",
+          "year": "2021",
+          "role": "Designer",
+          "summary": "A high-energy catering and mobile bar website that leads with credibility, lets the photography do the talking, and converts visitors into inquiries without a single hard sell.",
+          "accent": "cobalt",
+          "tags": [
+            {
+              "label": "Web Design"
+            },
+            {
+              "label": "Squarespace"
+            },
+            {
+              "label": "Branding"
+            },
+            {
+              "label": "Web Development"
+            },
+            {
+              "label": "Site Build"
+            }
+          ],
+          "body": [
+            {
+              "_type": "block",
+              "_key": "cx0003b",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0003c",
+                  "text": "Why I Built It This Way",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx0003d",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0003e",
+                  "text": "Party With Primo isn't a simple catering company. They do full food and alcohol catering, mobile bars, a mobile pizzeria, cocktail making classes, weddings, private parties, and more — all under one brand. My job was to make sure that breadth of service felt like a strength on the site, not a confusing mess. Every decision I made was about building trust fast and getting people to that email inquiry.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx0003f",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00040",
+                  "text": "The Hero Slideshow — Let the Work Speak",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00041",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00042",
+                  "text": "I led the homepage with a massive full-screen slideshow of real event photography — over 100 images of actual catered weddings, parties, and setups. No stock photos, no illustrations, just their real work front and center. This was intentional. In the catering world, people hire you based on what they've seen you do. Before a visitor reads a single word, they've already watched a reel of beautiful events scroll by. That slideshow is doing more selling than any headline could.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00043",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00044",
+                  "text": "The Credibility Block",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00045",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00046",
+                  "text": "Right below the hero I placed a clear, scannable list of what's included — chafing dishes, full service staff, portable bars, liability insurance, catering license, mixers, garnishes, glassware. I wanted prospects to immediately see that this is a professional full-service operation, not someone showing up with a cooler. The $1 million liability insurance line in particular was a conscious choice — it's the thing that separates serious catering companies from the rest and I made sure it was impossible to miss.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00047",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00048",
+                  "text": "Three Service Cards",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00049",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0004a",
+                  "text": "I kept the mid-page service breakdown to three focused cards: Weddings, Mobile Pizzeria, and Hands-On Cocktail Making Workshops. Each one has a strong image and a \"Learn More\" CTA. I could have listed every service here, but I didn't. The goal was to show the range without overwhelming, and let the inner pages do the heavy lifting on details.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx0004b",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0004c",
+                  "text": "The Owner Bio Section",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx0004d",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0004e",
+                  "text": "I made the deliberate call to put James and Shannon's story directly on the homepage rather than hiding it on an About page. In the catering and events industry, people are hiring people — not just a company. Putting their names, their 35 years of combined experience, and their connection to the bartending school right on the main page builds a personal relationship with the visitor before they ever reach out. It humanizes the brand in a way that no amount of beautiful photography can do alone.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx0004f",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00050",
+                  "text": "The Instagram Feed",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00051",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00052",
+                  "text": "I embedded their live Instagram feed at the bottom of the homepage. This was a low-effort, high-impact decision. Their feed is active and full of real events, which means the site is essentially self-updating with fresh social proof. Every new post they share automatically makes the website feel more alive and current without me touching anything.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00053",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00054",
+                  "text": "Navigation Structure",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00055",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00056",
+                  "text": "The nav is organized into two dropdown groups — \"Let's Eat\" and \"Mobile Mixology\" — which was the right call for a brand with this many sub-services. Flat navigation would have been too long and cluttered. Grouping by category makes it scannable and helps visitors self-sort into the right funnel quickly.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00057",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00058",
+                  "text": "The CTA Strategy",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00059",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0005a",
+                  "text": "Rather than a contact form, the primary CTA across the entire site is a direct email link — \"Book Your Private Event\" — which fires up a mailto to info@partywithprimo.com. This was a practical choice. Catering inquiries are nuanced and personal. A form feels transactional. An email feels like starting a real conversation, which is exactly the relationship they want to begin with a potential client.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx0005b",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0005c",
+                  "text": "What I'm Most Proud Of",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx0005d",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0005e",
+                  "text": "The gallery page. Over 100 real event photos organized in a clean masonry grid. It's the kind of page that makes people stop scrolling and just look. For a catering business, that page alone closes deals.",
+                  "marks": []
+                }
+              ]
+            }
+          ],
+          "sort_order": 30,
+          "live": "https://www.partywithprimo.com/",
+          "thumbnail": {
+            "$media": {
+              "url": "https://images.squarespace-cdn.com/content/65b142d6d7ce064b550ea905/64af67b3-aaa5-4f7d-ba56-96daac2e0af1/Blue+Illustrative+Restaurant+Specials+Menu+Instagram+Post.jpg?content-type=image%2Fjpeg",
+              "alt": "Party With Primo",
+              "filename": "Blue-Illustrative-Restaurant-Specials-Menu-Instagram-Post.jpg"
+            }
+          }
+        }
+      },
+      {
+        "id": "project-pbs",
+        "slug": "pbs",
+        "status": "published",
+        "data": {
+          "title": "Primo Bartending School",
+          "kind": "web",
+          "year": "2019",
+          "role": "Designer",
+          "summary": "A clean, no-nonsense bartending school site built inside a real restaurant ecosystem that sells the program's credibility before a visitor even scrolls.",
+          "accent": "cobalt",
+          "tags": [
+            {
+              "label": "Web Design"
+            },
+            {
+              "label": "Squarespace"
+            },
+            {
+              "label": "Site Build"
+            },
+            {
+              "label": "Web Development"
+            }
+          ],
+          "body": [
+            {
+              "_type": "block",
+              "_key": "cx0005f",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00060",
+                  "text": "Why I Built It This Way",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00061",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00062",
+                  "text": "Primo Bartending School isn't just a bartending class — it's a fully immersive training program built inside a working Italian-American restaurant, enclosed in glass walls so students and guests can observe each other in real time. That detail alone is the site's biggest selling point, and I made sure the design and copy communicated it immediately. The goal wasn't to make it look fancy. The goal was to make it look legitimate, approachable, and worth $399.99.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00063",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00064",
+                  "text": "The Hero Slideshow — Show the Facility, Show the People",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00065",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00066",
+                  "text": "I led with a full-screen slideshow of real students training at the mock bar, real class moments, and real facility shots. No stock images of anonymous bartenders. This was intentional — people considering a vocational program want to see exactly where they'll be sitting, what the bar looks like, and what the instructor energy feels like. The slideshow answers all of those questions before anyone reads a word.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00067",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00068",
+                  "text": "The Location Anchor",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00069",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0006a",
+                  "text": "Right at the top of the page I placed a simple but powerful line: \"Located inside Primo On Water Street Restaurant.\" That single line does an enormous amount of work. It tells the visitor this is a real, established, physical place. It ties the school to a functioning business with 35 years of combined hospitality experience behind it. It also links directly to the restaurant site, creating a cross-brand trust loop across all three Primo properties.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx0006b",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0006c",
+                  "text": "The Mission Block — Substance Over Flash",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx0006d",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0006e",
+                  "text": "Rather than leading with marketing language, I wrote a mission section that reads like a professional program description. It covers the glass-wall immersive setup, the real-world pace of training, the authentic equipment, and the connection to Primo Hospitality Solutions LLC. I wanted prospective students to feel like they were reading about a serious institution, not a weekend workshop. The TIPS Certification badge placed right next to the mission block adds immediate third-party credibility.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx0006f",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00070",
+                  "text": "The Curriculum Breakdown",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00071",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00072",
+                  "text": "I laid out the full curriculum in a clean two-column list — Bar Ethics, Glassware Education, Bottle Recognition, Proper Pouring, Resume and Interview Training, TIPS Certification, and more. This was a conscious transparency play. People spending $399 want to know exactly what they're getting. Hiding the curriculum behind a \"click to learn more\" would create friction and doubt. Putting it right on the homepage removes both.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00073",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00074",
+                  "text": "The Class Structure Section",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00075",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00076",
+                  "text": "Day Classes, Night Classes, and Weekend Classes each get their own block with clear details — hours per week, days, and time range. I kept this section simple and scannable because the decision to enroll often comes down to one thing: does the schedule work for my life? Getting that answer in three seconds removes the biggest barrier to enrollment.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00077",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00078",
+                  "text": "The Pricing Transparency",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00079",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0007a",
+                  "text": "I made the $399.99 price point prominent and immediately followed it with everything that's included — TIPS Certification, refresher classes, retakes, resume and interview workshops, and lifetime alumni access to the mock bar. The \"YOU NEVER PAY AGAIN\" line was a deliberate value amplifier. It reframes the price from a one-time cost to a lifetime investment. That framing matters enormously when your audience is weighing whether to spend money on a career change.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx0007b",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0007c",
+                  "text": "The \"Book Your Bartending Class Now\" CTA",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx0007d",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0007e",
+                  "text": "The primary CTA is in the nav, sticky at the top, and links directly to the booking page. I kept it action-forward and specific rather than something generic like \"Learn More.\" When someone is ready, I wanted zero friction between their intention and the enrollment page.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx0007f",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00080",
+                  "text": "The Instagram Feed",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00081",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00082",
+                  "text": "Just like the catering site, I embedded their live Instagram feed at the bottom. Their feed is full of graduation posts, class announcements, and behind-the-scenes training moments. It keeps the site feeling current and alive, and it shows consistent classes running — which is social proof that the school is active and filling seats.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00083",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00084",
+                  "text": "The Cross-Brand Ecosystem",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00085",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00086",
+                  "text": "I included a persistent \"Party With Primo Catering\" link in the nav and a section on the homepage pointing to the catering company. This was a strategic decision. The bartending school and the catering company feed each other — graduates can get hired through Party With Primo, and the catering company can highlight that its bartenders are school-trained. I wanted the site to make that connection visible and clickable.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00087",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00088",
+                  "text": "What I'm Most Proud Of",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00089",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0008a",
+                  "text": "The way the pricing section is written. Turning a $399 vocational class into something that feels like a lifetime membership with ongoing support and open alumni access — that's the kind of copy that actually converts, and it came from understanding what the school actually offers, not just what sounds good.",
+                  "marks": []
+                }
+              ]
+            }
+          ],
+          "sort_order": 40,
+          "thumbnail": {
+            "$media": {
+              "url": "https://images.squarespace-cdn.com/content/65b142d6d7ce064b550ea905/3712b0f2-2b47-4225-99ad-136fc64370d1/bartending+school.jpg?content-type=image%2Fjpeg",
+              "alt": "Primo Bartending School",
+              "filename": "bartending-school.jpg"
+            }
+          }
+        }
+      },
+      {
+        "id": "project-hintless",
+        "slug": "hintless",
+        "status": "published",
+        "data": {
+          "title": "Hintless",
+          "kind": "game",
+          "year": "2026",
+          "role": "Design, Code",
+          "summary": "A co-op multiplayer mystery for 2–5 players: one Curator, up to four Explorers, a surreal gallery full of puzzles, and hints that may or may not be honest. Trust no one. Especially your friends.",
+          "accent": "plum",
+          "tags": [
+            {
+              "label": "Godot"
+            },
+            {
+              "label": "GDScript"
+            },
+            {
+              "label": "Multiplayer"
+            }
+          ],
+          "body": [
+            {
+              "_type": "block",
+              "_key": "cx0008b",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0008c",
+                  "text": "Hintless",
+                  "marks": [
+                    "strong"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx0008d",
+                  "text": " is a co-op multiplayer mystery I'm building at Naberus Games. The tagline says it best: ",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx0008e",
+                  "text": "Trust No One. Especially Your Friends.",
+                  "marks": [
+                    "em"
+                  ]
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx0008f",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00090",
+                  "text": "Two to five players drop into a surreal gallery. Each round, one person plays the Curator and everyone else (one to four Explorers) works through a chain of puzzles together. The Curator is the only one who can give hints, and those hints might be honest or might be a lie. The Curator can also sabotage the Explorers. Roles change every round, and rounds are short, so it's easy to say \"one more.\"",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00091",
+              "style": "h3",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00092",
+                  "text": "The mood",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00093",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00094",
+                  "text": "I want the gallery to feel brutalist and surreal: burgundy and gold, dark wood and stone, all under warm, dim light. The tone I'm going for is funny horror rather than oppressive horror. You should be nervous and laughing at the same time.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00095",
+              "style": "h3",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00096",
+                  "text": "How it's built",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00097",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00098",
+                  "text": "Godot 4",
+                  "marks": [
+                    "strong"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx00099",
+                  "text": " with GDScript",
+                  "marks": []
+                }
+              ],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "cx0009a",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0009b",
+                  "text": "GodotSteam",
+                  "marks": [
+                    "strong"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx0009c",
+                  "text": " for Steam lobbies, plus ",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx0009d",
+                  "text": "ENet",
+                  "marks": [
+                    "strong"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx0009e",
+                  "text": " for direct-IP multiplayer",
+                  "marks": []
+                }
+              ],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "cx0009f",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000a0",
+                  "text": "The ",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000a1",
+                  "text": "Controller Icons",
+                  "marks": [
+                    "strong"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000a2",
+                  "text": " add-on for gamepad prompts",
+                  "marks": []
+                }
+              ],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "cx000a3",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000a4",
+                  "text": "Large assets kept in Git LFS, stored on Cloudflare R2",
+                  "marks": []
+                }
+              ],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "cx000a5",
+              "style": "h3",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000a6",
+                  "text": "Where it's at",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx000a7",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000a8",
+                  "text": "Hintless is in pre-alpha. So far I've built:",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx000a9",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000aa",
+                  "text": "Main, settings, and pause menus",
+                  "marks": []
+                }
+              ],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "cx000ab",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000ac",
+                  "text": "Controller prompts",
+                  "marks": []
+                }
+              ],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "cx000ad",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000ae",
+                  "text": "A Steam lobby and a direct-IP lobby",
+                  "marks": []
+                }
+              ],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "cx000af",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000b0",
+                  "text": "Third-person movement and animation",
+                  "marks": []
+                }
+              ],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "cx000b1",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000b2",
+                  "text": "Networked player spawning and an interaction test",
+                  "marks": []
+                }
+              ],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "cx000b3",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000b4",
+                  "text": "On October 13 I ran the first local direct-IP match, with the host and the client seeing each other in the test level. Full multiplayer playtests come next.",
+                  "marks": []
+                }
+              ]
+            }
+          ],
+          "sort_order": 50,
+          "thumbnail": {
+            "$media": {
+              "url": "https://r2.tauntondentalassociates.com/portfolio/hintless/hintless-header.webp",
+              "alt": "Hintless",
+              "filename": "hintless-header.webp"
+            }
+          }
+        }
+      },
+      {
+        "id": "project-nidus",
+        "slug": "nidus",
+        "status": "published",
+        "data": {
+          "title": "Nidus",
+          "kind": "web",
+          "year": "2026",
+          "role": "Product, Design & Development",
+          "summary": "Multi-tenant, white-label IT asset management for tagged devices and quantity stock. Coming soon.",
+          "accent": "cobalt",
+          "tags": [
+            {
+              "label": "TanStack Start"
+            },
+            {
+              "label": "Convex"
+            },
+            {
+              "label": "Cloudflare Workers"
+            },
+            {
+              "label": "TypeScript"
+            }
+          ],
+          "body": [
+            {
+              "_type": "block",
+              "_key": "cx000b5",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000b6",
+                  "text": "Nidus is an IT asset management system for teams that track tagged devices and quantity stock, built as one deployment with a separate, isolated company on each subdomain.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx000b7",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000b8",
+                  "text": "Each company gets its own branding, people, roles and records, with email and password sign-in by default and Microsoft Entra single sign-on as an optional add-on.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx000b9",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000ba",
+                  "text": "It is still in development and coming soon at nidus.sh.",
+                  "marks": []
+                }
+              ]
+            }
+          ],
+          "sort_order": 60,
+          "thumbnail": {
+            "$media": {
+              "file": "assets/nidus-thumb.png",
+              "alt": "Nidus"
+            }
+          }
+        }
+      }
+    ],
+    "posts": [
+      {
+        "id": "post-tda-rebuild-old-vs-new",
+        "slug": "tda-rebuild-old-vs-new",
+        "status": "published",
+        "data": {
+          "title": "Rebuilding Taunton Dental Associates: From a Webstudio Export to a Hand-Built Site",
+          "posted_on": "2026-10-01T12:00:00.000Z",
+          "tag": "web",
+          "excerpt": "I rebuilt the Taunton Dental Associates site, moving it from a generated Webstudio + Remix export to a hand-written React/Vite app on Cloudflare. Here's what changed, what I measured, and why the new one is better for patients and easier for me to maintain.",
+          "read_time": "6 min",
+          "body": [
+            {
+              "_type": "block",
+              "_key": "cx000bb",
+              "style": "normal",
+              "markDefs": [
+                {
+                  "_type": "link",
+                  "_key": "cx000c1",
+                  "href": "https://tauntondentalassociates.com"
+                }
+              ],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000bc",
+                  "text": "The first Taunton Dental Associates site was built visually in ",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000bd",
+                  "text": "Webstudio",
+                  "marks": [
+                    "strong"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000be",
+                  "text": " and exported as a ",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000bf",
+                  "text": "Remix 2 + Vite",
+                  "marks": [
+                    "strong"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000c0",
+                  "text": " app. It got the practice online, but every change meant going back through the builder, and the code it produced wasn't something I wanted to maintain by hand. So I rebuilt it from scratch. The new site is live at ",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000c2",
+                  "text": "tauntondentalassociates.com",
+                  "marks": [
+                    "cx000c1",
+                    "strong"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000c3",
+                  "text": ".",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "image",
+              "_key": "cx000c4",
+              "alt": "Old homepage, desktop",
+              "asset": {
+                "$media": {
+                  "url": "https://r2.tauntondentalassociates.com/portfolio/tda-rebuild/old-home-desktop.webp",
+                  "alt": "Old homepage, desktop",
+                  "filename": "old-home-desktop.webp"
+                }
+              }
+            },
+            {
+              "_type": "image",
+              "_key": "cx000c5",
+              "alt": "New home page, desktop",
+              "asset": {
+                "$media": {
+                  "url": "https://r2.tauntondentalassociates.com/portfolio/tda-rebuild/new-home-desktop.webp",
+                  "alt": "New home page, desktop",
+                  "filename": "new-home-desktop.webp"
+                }
+              }
+            },
+            {
+              "_type": "block",
+              "_key": "cx000c6",
+              "style": "h2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000c7",
+                  "text": "The stack",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx000c8",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000c9",
+                  "text": "OldNewSourceWebstudio export (",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000ca",
+                  "text": "@webstudio-is/*",
+                  "marks": [
+                    "code"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000cb",
+                  "text": " SDK 0.202)Hand-written TypeScript componentsFrameworkRemix 2.15 on Vite 5, React 18 canaryReact app router built with Vite + vinextStylingGenerated by the builderTailwind + Radix UI primitivesHostingVercelCloudflare Workers, photos on R2TestsNonePlaywright suites for accessibility, layout, performance, preferences and Workers",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx000cc",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000cd",
+                  "text": "The old repo is a single generated import commit with about 20,800 lines of route TSX. The new app, components and lib come to about 7,200 lines that I wrote and can read, and it has a history of 74 commits that document real decisions.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx000ce",
+              "style": "h2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000cf",
+                  "text": "What I measured",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx000d0",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000d1",
+                  "text": "I loaded the same three pages (home, FAQs, patient forms) on both sites at desktop (1440 x 900) and mobile (390 x 844) sizes in headless Chromium:",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx000d2",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000d3",
+                  "text": "Headings:",
+                  "marks": [
+                    "strong"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000d4",
+                  "text": " the old homepage had ",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000d5",
+                  "text": "18 ",
+                  "marks": [
+                    "strong"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000d6",
+                  "text": "<h1>",
+                  "marks": [
+                    "code"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000d7",
+                  "text": " elements",
+                  "marks": [
+                    "strong"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000d8",
+                  "text": " (FAQs had 9, forms had 8), because the builder used the heading tag for styling. Each page on the new site has exactly ",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000d9",
+                  "text": "one ",
+                  "marks": [
+                    "strong"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000da",
+                  "text": "<h1>",
+                  "marks": [
+                    "code"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000db",
+                  "text": ", so the outline makes sense to screen readers and search engines.",
+                  "marks": []
+                }
+              ],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "cx000dc",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000dd",
+                  "text": "Titles:",
+                  "marks": [
+                    "strong"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000de",
+                  "text": " old pages were titled just \"Home\", \"FAQs\", \"Forms\". New ones are descriptive, like \"Patient Forms | Taunton Dental Associates\".",
+                  "marks": []
+                }
+              ],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "cx000df",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000e0",
+                  "text": "Language:",
+                  "marks": [
+                    "strong"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000e1",
+                  "text": " the old FAQs and forms pages had no ",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000e2",
+                  "text": "lang",
+                  "marks": [
+                    "code"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000e3",
+                  "text": " attribute. Every new page sets ",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000e4",
+                  "text": "lang=\"en\"",
+                  "marks": [
+                    "code"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000e5",
+                  "text": ".",
+                  "marks": []
+                }
+              ],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "cx000e6",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000e7",
+                  "text": "Requests:",
+                  "marks": [
+                    "strong"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000e8",
+                  "text": " 38–49 requests per page on the old site versus 23–29 on the new one. (The old site was running on a local dev server, so its JavaScript total isn't a fair production number, and I'm leaving it out.)",
+                  "marks": []
+                }
+              ],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "image",
+              "_key": "cx000e9",
+              "alt": "Old FAQs page, mobile",
+              "asset": {
+                "$media": {
+                  "url": "https://r2.tauntondentalassociates.com/portfolio/tda-rebuild/old-faqs-mobile.webp",
+                  "alt": "Old FAQs page, mobile",
+                  "filename": "old-faqs-mobile.webp"
+                }
+              }
+            },
+            {
+              "_type": "image",
+              "_key": "cx000ea",
+              "alt": "New FAQs page, mobile",
+              "asset": {
+                "$media": {
+                  "url": "https://r2.tauntondentalassociates.com/portfolio/tda-rebuild/new-faqs-mobile.webp",
+                  "alt": "New FAQs page, mobile",
+                  "filename": "new-faqs-mobile.webp"
+                }
+              }
+            },
+            {
+              "_type": "block",
+              "_key": "cx000eb",
+              "style": "h2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000ec",
+                  "text": "Performance work",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx000ed",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000ee",
+                  "text": "The new site's audit notes are in the repo. On a hosted preview, Lighthouse 13.5 measured ",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000ef",
+                  "text": "91/100 performance with CLS 0",
+                  "marks": [
+                    "strong"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000f0",
+                  "text": " before the latest image work. After that, I:",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx000f1",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000f2",
+                  "text": "moved all 78 photo variants (AVIF/WebP) to R2 and served them with ",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000f3",
+                  "text": "srcset",
+                  "marks": [
+                    "code"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000f4",
+                  "text": "/",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx000f5",
+                  "text": "sizes",
+                  "marks": [
+                    "code"
+                  ]
+                }
+              ],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "cx000f6",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000f7",
+                  "text": "cut the mobile hero AVIF from 349 KB to 108 KB (69% smaller) and the gallery images from 715 KB to 317 KB (56% smaller)",
+                  "marks": []
+                }
+              ],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "cx000f8",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000f9",
+                  "text": "added a narrow Cloudflare cache rule that gives fingerprinted photos a one-year browser cache",
+                  "marks": []
+                }
+              ],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "cx000fa",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000fb",
+                  "text": "loaded the special-offer popup only after a visitor interacts with the page, so it no longer takes over the viewport during load",
+                  "marks": []
+                }
+              ],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "cx000fc",
+              "style": "h2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000fd",
+                  "text": "Accessibility",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx000fe",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx000ff",
+                  "text": "The rebuild targeted ",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx00100",
+                  "text": "WCAG 2.2 AA",
+                  "marks": [
+                    "strong"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx00101",
+                  "text": ": a motion-preference panel, reduced-motion support, focus that doesn't jump, contrast fixes I measured, layout that reflows at 200% text size, and a dedicated accessibility page. The browser test suite passed ",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx00102",
+                  "text": "44/44",
+                  "marks": [
+                    "strong"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "cx00103",
+                  "text": ".",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "image",
+              "_key": "cx00104",
+              "alt": "Old forms page, mobile",
+              "asset": {
+                "$media": {
+                  "url": "https://r2.tauntondentalassociates.com/portfolio/tda-rebuild/old-forms-mobile.webp",
+                  "alt": "Old forms page, mobile",
+                  "filename": "old-forms-mobile.webp"
+                }
+              }
+            },
+            {
+              "_type": "image",
+              "_key": "cx00105",
+              "alt": "New forms page, mobile",
+              "asset": {
+                "$media": {
+                  "url": "https://r2.tauntondentalassociates.com/portfolio/tda-rebuild/new-forms-mobile.webp",
+                  "alt": "New forms page, mobile",
+                  "filename": "new-forms-mobile.webp"
+                }
+              }
+            },
+            {
+              "_type": "block",
+              "_key": "cx00106",
+              "style": "h2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00107",
+                  "text": "Why it's better",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx00108",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx00109",
+                  "text": "Most of what the old site showed is still there: the doctors, services, FAQs and forms. What's different is that I now own every line of it. Pages have correct structure and metadata, images are sized for the device viewing them, accessibility is checked by tests instead of by hoping, and deploying is one command to Cloudflare. A dental practice's site has to load fast on a phone in a waiting room and work for every patient, and the new one is built for exactly that.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "post-p005",
+        "slug": "p005",
+        "status": "published",
+        "data": {
+          "title": "Trust no one. Especially your friends.",
+          "posted_on": "2026-08-01T12:00:00.000Z",
+          "tag": "Devlog",
+          "excerpt": "Hintless is an asymmetric multiplayer puzzle game I am building in Godot 4. One Curator, a few Explorers, and hints you should not fully trust.",
+          "read_time": "5 min",
+          "body": [
+            {
+              "_type": "block",
+              "_key": "cx0010a",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0010b",
+                  "text": "Hintless is a 2–5 player game: one Curator, one to four Explorers, Steam P2P. The tagline is doing a lot of work on purpose.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx0010c",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0010d",
+                  "text": "The round is one graybox gallery, one puzzle chain I am calling Three Portraits, hints that might be true or might not, then a Lights Out sabotage. Back to the lobby without restarting.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "cx0010e",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "cx0010f",
+                  "text": "Current milestone is a playable friendslop prototype. Art direction is a brutalist surrealist gallery — burgundy, gold, dark wood, funny horror. Godot 4 is already in.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "profile": [
+      {
+        "id": "profile",
+        "status": "published",
+        "data": {
+          "name": "Jon Colon",
+          "availability": "Available May",
+          "location": "Southern MA",
+          "hero_phrases": [
+            {
+              "text": "interactive prototypes!"
+            },
+            {
+              "text": "devlogs & games!"
+            },
+            {
+              "text": "chunky websites!"
+            },
+            {
+              "text": "things that click!"
+            },
+            {
+              "text": "pixel art at 2 a.m.!"
+            }
+          ],
+          "about_intro": "I am a Desktop Support Technician and part-time web/game developer. Currently making interactive prototypes, devlogs & games, chunky websites, things that click, and pixel art at 2 a.m.",
+          "about_facts": [
+            {
+              "label": "Based",
+              "value": "Southern MA"
+            },
+            {
+              "label": "Available",
+              "value": "Taking 1-2 new projects starting May"
+            },
+            {
+              "label": "Stack",
+              "value": "React, Next.js, Astro, Godot, Unreal, Canva, Aseprite"
+            },
+            {
+              "label": "Prefer",
+              "value": "weird briefs, full control"
+            },
+            {
+              "label": "Don't",
+              "value": "Web3, fintech"
+            }
+          ],
+          "cta_eyebrow": "→ Available May 2026",
+          "cta_body": "1-2 slots opening in May. Web, brand, a bit of product. Small teams doing unusual things only.",
+          "resume_work": [
+            {
+              "title": "Independent",
+              "org": "Self",
+              "years": "2018–now",
+              "tag": "current"
+            },
+            {
+              "title": "Desktop Support Specialist",
+              "org": "People Incorporated",
+              "years": "2023–now",
+              "tag": "current"
+            },
+            {
+              "title": "Advanced Repair Agent",
+              "org": "Geek Squad",
+              "years": "2020–2024",
+              "tag": ""
+            },
+            {
+              "title": "Expo/Food Runner",
+              "org": "The Tipsy Seagull",
+              "years": "2014-2020",
+              "tag": ""
+            }
+          ],
+          "resume_education": [
+            {
+              "title": "Associates degree in Computer Science",
+              "org": "Bristol Community College",
+              "years": "2019",
+              "tag": "AS"
+            }
+          ],
+          "skills": [
+            {
+              "name": "TypeScript"
+            },
+            {
+              "name": "React"
+            },
+            {
+              "name": "Next.js"
+            },
+            {
+              "name": "Node.js"
+            },
+            {
+              "name": "HTML5"
+            },
+            {
+              "name": "CSS"
+            },
+            {
+              "name": "Tailwind CSS"
+            },
+            {
+              "name": "UI Design"
+            },
+            {
+              "name": "Figma"
+            },
+            {
+              "name": "PostgreSQL"
+            },
+            {
+              "name": "Microsoft SQL Server"
+            },
+            {
+              "name": "Git"
+            },
+            {
+              "name": "Linux"
+            },
+            {
+              "name": "Windows"
+            },
+            {
+              "name": "macOS"
+            },
+            {
+              "name": "Active Directory"
+            },
+            {
+              "name": "DNS"
+            },
+            {
+              "name": "Networking"
+            },
+            {
+              "name": "Desktop Support"
+            },
+            {
+              "name": "Hardware Repair"
+            },
+            {
+              "name": "Technical Troubleshooting"
+            },
+            {
+              "name": "Godot"
+            },
+            {
+              "name": "Unity"
+            },
+            {
+              "name": "Aseprite"
+            },
+            {
+              "name": "C/C++"
+            }
+          ],
+          "hero_tagline": "Designer, developer and part-time game dev.",
+          "marquee_items": [
+            {
+              "text": "Available May 2026"
+            },
+            {
+              "text": "Interactive prototypes"
+            },
+            {
+              "text": "Web design"
+            },
+            {
+              "text": "Indie games"
+            },
+            {
+              "text": "Design systems"
+            },
+            {
+              "text": "Southern MA"
+            },
+            {
+              "text": "Taking clients"
+            }
+          ],
+          "intro_web": "Sites, products, marketing pages. Half for clients, half for the fun of it.",
+          "intro_games": "Small weird games I make in my off-hours. Two shipped, two in progress.",
+          "intro_devlog": "Short posts about what I'm making and why. Unfiltered.",
+          "intro_contact": "Best for project inquiries. I reply within a day or two.",
+          "contact_email": "jonathen@joncolon.dev",
+          "contact_notes": "Booking May 2026 onward.\nPacific & Eastern times both fine.\nPrefer async over meetings.",
+          "social_links": [
+            {
+              "label": "X / Twitter",
+              "handle": "@oobijohnson",
+              "url": "https://x.com/oobijohnson"
+            },
+            {
+              "label": "GitHub",
+              "handle": "Jonathen-Colon",
+              "url": "https://github.com/Jonathen-Colon"
+            },
+            {
+              "label": "LinkedIn",
+              "handle": "in/jonathen-colon",
+              "url": "https://www.linkedin.com/in/jonathen-colon-51956789/"
+            }
+          ],
+          "footer_headline": "Making stuff\nsince 2018.",
+          "footer_note": "Hand-built with Astro, React and a lot of coffee",
+          "resume_pdf": {
+            "$media": {
+              "file": "assets/Jonathen-Colon.pdf",
+              "filename": "Jonathen-Colon.pdf"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,10 +1,4 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import PortfolioApp from "../components/PortfolioApp";
-import { SITE_PAGE_META } from "../data/sitePages";
-
-const meta = SITE_PAGE_META.blog;
+import PortfolioPage from "../components/PortfolioPage.astro";
 ---
-<BaseLayout title={meta.title} description={meta.description}>
-  <PortfolioApp client:only="react" initialPage="blog" />
-</BaseLayout>
+<PortfolioPage page="blog" />

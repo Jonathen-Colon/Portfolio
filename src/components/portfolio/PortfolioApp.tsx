@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { resume as resumeContent } from '../../data/portfolio';
 import type { Post, Project } from '../../data/portfolioContent';
+import type { Profile } from '../../data/profile';
 import { sitePageTitle } from '../../data/sitePages';
 import { useFinePointer, useNeedClickNavMenu } from './hooks';
 import {
@@ -29,6 +30,7 @@ export type PortfolioAppProps = {
   onSubmitContact?: (input: ContactFormInput) => Promise<void>;
   resumePdfUrl?: string | null;
   resumePdfFilename?: string;
+  profile?: Profile | null;
 };
 
 export default function PortfolioApp({
@@ -39,6 +41,7 @@ export default function PortfolioApp({
   onSubmitContact,
   resumePdfUrl = null,
   resumePdfFilename = 'resume.pdf',
+  profile = null,
 }: PortfolioAppProps) {
   const webProjects = webProjectsProp ?? [];
   const gameProjects = gameProjectsProp ?? [];
@@ -299,40 +302,41 @@ export default function PortfolioApp({
           webProjects={webProjects}
           gameProjects={gameProjects}
           posts={posts}
+          profile={profile}
         />
       )}
       {page === 'web' && (
         <div key="web">
-          <WorkPage kind="web" go={go} openProject={setModalProject} projects={webProjects} />
+          <WorkPage kind="web" go={go} openProject={setModalProject} projects={webProjects} profile={profile} />
         </div>
       )}
       {page === 'games' && (
         <div key="games">
-          <WorkPage kind="games" go={go} openProject={setModalProject} projects={gameProjects} />
+          <WorkPage kind="games" go={go} openProject={setModalProject} projects={gameProjects} profile={profile} />
         </div>
       )}
       {page === 'blog' && (
         <div key="blog">
-          <BlogPage openPost={setModalPost} posts={posts} />
+          <BlogPage openPost={setModalPost} posts={posts} profile={profile} />
         </div>
       )}
       {page === 'about' && (
         <div key="about">
-          <AboutPage />
+          <AboutPage profile={profile} />
         </div>
       )}
       {page === 'contact' && (
         <div key="contact">
-          <ContactPage onSubmitContact={onSubmitContact} />
+          <ContactPage onSubmitContact={onSubmitContact} profile={profile} />
         </div>
       )}
       {page === 'resume' && (
         <div key="resume">
-          <ResumePage resume={resumeContent} resumePdfUrl={resumePdfUrl} resumePdfFilename={resumePdfFilename} />
+          <ResumePage resume={profile?.resume ?? resumeContent} resumePdfUrl={resumePdfUrl} resumePdfFilename={resumePdfFilename} />
         </div>
       )}
 
-      <Footer go={go} />
+      <Footer go={go} profile={profile} />
 
       {modalProject && <ProjectModal project={modalProject} onClose={() => setModalProject(null)} />}
       {modalPost && <PostModal post={modalPost} onClose={() => setModalPost(null)} />}

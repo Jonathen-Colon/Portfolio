@@ -1,7 +1,8 @@
 import React from 'react';
+import { PROFILE_DEFAULTS, pick, type Profile } from '../../data/profile';
 
-export function MarqueeStrip() {
-  const items = ['Available May 2026', 'Interactive prototypes', 'Web design', 'Indie games', 'Design systems', 'Southern MA', 'Taking clients'];
+export function MarqueeStrip({ profile = null }: { profile?: Profile | null }) {
+  const items = pick(profile?.marqueeItems, PROFILE_DEFAULTS.marqueeItems);
   const full = [...items, ...items];
   return (
     <div className="marquee">

@@ -1,0 +1,30 @@
+---
+/**
+ * Server-rendered shell for every public route: loads published content from
+ * EmDash on each request and hands it to the React UI.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PortfolioApp from "./portfolio/PortfolioApp";
+import { SITE_PAGE_META, type SitePageId } from "../data/sitePages";
+import { loadPortfolioContent } from "../lib/emdashContent";
+
+interface Props {
+  page: SitePageId;
+}
+
+const { page } = Astro.props;
+const meta = SITE_PAGE_META[page];
+const content = await loadPortfolioContent(Astro.locals.emdash?.getPublicMediaUrl);
+---
+<BaseLayout title={meta.title} description={meta.description}>
+  <PortfolioApp
+    client:only="react"
+    initialPage={page}
+    webProjects={content.webProjects}
+    gameProjects={content.gameProjects}
+    posts={content.posts}
+    profile={content.profile}
+    resumePdfUrl={content.profile?.resumePdfUrl ?? null}
+    resumePdfFilename={content.profile?.resumePdfFilename}
+  />
+</BaseLayout>

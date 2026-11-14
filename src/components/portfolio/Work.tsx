@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Project } from '../../data/portfolioContent';
 import { ProjectThumb } from './Thumbnails';
+import { PROFILE_DEFAULTS, pick, type Profile } from '../../data/profile';
 
 function EmptyState({ title, body }: { title: string; body: string }) {
   return (
@@ -47,18 +48,20 @@ export function WorkPage({
   openProject,
   kind,
   projects,
+  profile = null,
 }: {
   go: (id: string) => void;
   openProject: (p: Project) => void;
   kind: 'web' | 'games';
   projects: Project[];
+  profile?: Profile | null;
 }) {
   const title = kind === 'web' ? 'Web design' : 'Game dev';
   const num = kind === 'web' ? '02' : '03';
   const sub =
     kind === 'web'
-      ? 'Sites, products, marketing pages. Half for clients, half for the fun of it.'
-      : 'Small weird games I make in my off-hours. Two shipped, two in progress.';
+      ? pick(profile?.intros.web, PROFILE_DEFAULTS.intros.web)
+      : pick(profile?.intros.games, PROFILE_DEFAULTS.intros.games);
   return (
     <section className="section page">
       <div className="wrap">

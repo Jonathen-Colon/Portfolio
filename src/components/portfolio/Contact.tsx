@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { PROFILE_DEFAULTS, pick, type Profile } from '../../data/profile';
 
 export type ContactFormInput = {
   name: string;
@@ -7,11 +8,41 @@ export type ContactFormInput = {
   body: string;
 };
 
-export function ContactPage({ onSubmitContact }: { onSubmitContact?: (input: ContactFormInput) => Promise<void> }) {
+const SUBMIT_URL = '/_emdash/api/plugins/contact-inbox/submit';
+
+const SUBMIT_ERRORS: Record<string, string> = {
+  INVALID_INPUT: 'Please check your name, email and message and try again.',
+  RATE_LIMITED: "You've sent a few messages already. Please try again in an hour, or email me directly.",
+};
+
+/** Saves the message to the EmDash contact inbox (plugins/contact-inbox). */
+async function postToInbox(input: ContactFormInput & { website: string }) {
+  const res = await fetch(SUBMIT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(input),
+  });
+  const json = (await res.json().catch(() => null)) as { success?: boolean; data?: { ok?: boolean; error?: string } } | null;
+  if (!res.ok || !json?.success || !json.data?.ok) {
+    throw new Error(SUBMIT_ERRORS[json?.data?.error ?? ''] ?? 'Could not send message. Please try again, or email me directly.');
+  }
+}
+
+export function ContactPage({
+  onSubmitContact,
+  profile = null,
+}: {
+  onSubmitContact?: (input: ContactFormInput) => Promise<void>;
+  profile?: Profile | null;
+}) {
+  const email = pick(profile?.contactEmail, PROFILE_DEFAULTS.contactEmail);
+  const socials = pick(profile?.socialLinks, PROFILE_DEFAULTS.socialLinks);
+  const notes = pick(profile?.contactNotes, PROFILE_DEFAULTS.contactNotes);
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState<ContactFormInput>({ name: '', email: '', kind: 'Project inquiry', body: '' });
+  const [website, setWebsite] = useState('');
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -20,10 +51,8 @@ export function ContactPage({ onSubmitContact }: { onSubmitContact?: (input: Con
     try {
       if (onSubmitContact) {
         await onSubmitContact(form);
-      } else if (typeof window !== 'undefined') {
-        const subject = encodeURIComponent(form.kind);
-        const body = encodeURIComponent(`${form.body}\n\nFrom: ${form.name} <${form.email}>`);
-        window.location.href = `mailto:hi@joncolon.co?subject=${subject}&body=${body}`;
+      } else {
+        await postToInbox({ ...form, website });
       }
       setSent(true);
       setTimeout(() => setSent(false), 4000);
@@ -42,7 +71,7 @@ export function ContactPage({ onSubmitContact }: { onSubmitContact?: (input: Con
             <div className="section-num">07 / contact</div>
             <h2 className="section-title display">Let's talk.</h2>
             <p style={{ maxWidth: 540, color: 'var(--ink-soft)', margin: '14px 0 0' }}>
-              Best for project inquiries. I reply within a day or two.
+              {pick(profile?.intros.contact, PROFILE_DEFAULTS.intros.contact)}
             </p>
           </div>
         </div>
@@ -50,7 +79,7 @@ export function ContactPage({ onSubmitContact }: { onSubmitContact?: (input: Con
           <form onSubmit={submit}>
             <div className="form-field">
               <label>Name</label>
-              <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Your name" />
+              <input required maxLength={200} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Your name" />
             </div>
             <div className="form-field">
               <label>Email</label>
@@ -75,10 +104,18 @@ export function ContactPage({ onSubmitContact }: { onSubmitContact?: (input: Con
                 <option>Something else</option>
               </select>
             </div>
+            {/* Honeypot: hidden from people; bots that fill it are dropped server-side. */}
+            <div aria-hidden="true" style={{ position: 'absolute', left: '-10000px', width: 1, height: 1, overflow: 'hidden' }}>
+              <label>
+                Website
+                <input tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} />
+              </label>
+            </div>
             <div className="form-field">
               <label>Message</label>
               <textarea
                 required
+                maxLength={5000}
                 value={form.body}
                 onChange={(e) => setForm({ ...form, body: e.target.value })}
                 placeholder="Tell me about it. What are you making? What's the weird edge?"
@@ -99,10 +136,10 @@ export function ContactPage({ onSubmitContact }: { onSubmitContact?: (input: Con
                 Direct
               </div>
               <a
-                href="mailto:jonathen@joncolon.dev"
+                href={`mailto:${email}`}
                 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 28, letterSpacing: '-0.02em', color: 'inherit' }}
               >
-                jonathen@joncolon.dev
+                {email}
               </a>
               <div className="mono" style={{ marginTop: 8, color: 'var(--muted)' }}>
                 Copy · opens mail
@@ -113,22 +150,21 @@ export function ContactPage({ onSubmitContact }: { onSubmitContact?: (input: Con
                 Elsewhere
               </div>
               <div style={{ display: 'grid', gap: 10 }}>
-                <a className="nav-link" style={{ justifySelf: 'start', background: '#141414', color: '#F4EFE6' }} href="https://x.com/oobijohnson" target="_blank" rel="noreferrer">
-                  X / Twitter → @oobijohnson
-                </a>
-                <a className="nav-link" style={{ justifySelf: 'start', background: '#141414', color: '#F4EFE6' }} href="https://github.com/Jonathen-Colon" target="_blank" rel="noreferrer">
-                  GitHub → Jonathen-Colon
-                </a>
-                <a className="nav-link" style={{ justifySelf: 'start', background: '#141414', color: '#F4EFE6' }} href="https://www.linkedin.com/in/jonathen-colon-51956789/" target="_blank" rel="noreferrer">
-                  LinkedIn → in/jonathen-colon
-                </a>
+                {socials.map((l) => (
+                  <a key={l.url} className="nav-link" style={{ justifySelf: 'start', background: '#141414', color: '#F4EFE6' }} href={l.url} target="_blank" rel="noreferrer">
+                    {l.label}
+                    {l.handle ? ` → ${l.handle}` : ''}
+                  </a>
+                ))}
               </div>
             </div>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--muted)', lineHeight: 1.6 }}>
-              Booking May 2026 onward. <br />
-              Pacific & Eastern times both fine.
-              <br />
-              Prefer async over meetings.
+              {notes.map((n, i) => (
+                <React.Fragment key={i}>
+                  {i > 0 && <br />}
+                  {n}
+                </React.Fragment>
+              ))}
             </div>
           </aside>
         </div>

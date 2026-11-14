@@ -1,4 +1,16 @@
 import React from 'react';
+import type { Profile } from '../../data/profile';
+
+const DEFAULT_INTRO =
+  'I am a Desktop Support Technician and part-time web/game developer. Currently making interactive prototypes, devlogs & games, chunky websites, things that click, and pixel art at 2 a.m.';
+
+const DEFAULT_FACTS = [
+  { label: 'Based', value: 'Southern MA' },
+  { label: 'Available', value: 'Taking 1-2 new projects starting May' },
+  { label: 'Stack', value: 'React, Next.js, Astro, Godot, Unreal, Canva, Aseprite' },
+  { label: 'Prefer', value: 'weird briefs, full control' },
+  { label: "Don't", value: 'Web3, fintech' },
+];
 
 function PortraitIllustration() {
   return (
@@ -32,7 +44,8 @@ function PortraitIllustration() {
   );
 }
 
-export function AboutPage() {
+export function AboutPage({ profile = null }: { profile?: Profile | null }) {
+  const facts = profile?.aboutFacts.length ? profile.aboutFacts : DEFAULT_FACTS;
   return (
     <section className="section page">
       <div className="wrap">
@@ -45,34 +58,24 @@ export function AboutPage() {
         <div className="about-grid">
           <div>
             <p style={{ fontSize: 20, lineHeight: 1.5, color: 'var(--ink-soft)', marginTop: 0 }}>
-              I am a Desktop Support Technician and part-time web/game developer. Currently making interactive prototypes, devlogs & games, chunky websites, things that click, and pixel art at 2 a.m.
+              {profile?.aboutIntro || DEFAULT_INTRO}
             </p>
             <div className="fact-list">
-              <div className="fact">
-                <div className="fact-k">Based</div>
-                <div className="fact-v">Southern MA</div>
-              </div>
-              <div className="fact">
-                <div className="fact-k">Available</div>
-                <div className="fact-v">Taking 1-2 new projects starting May</div>
-              </div>
-              <div className="fact">
-                <div className="fact-k">Stack</div>
-                <div className="fact-v">React, Next.js, Astro, Godot, Unreal, Canva, Aseprite</div>
-              </div>
-              <div className="fact">
-                <div className="fact-k">Prefer</div>
-                <div className="fact-v"> weird briefs, full control</div>
-              </div>
-              <div className="fact">
-                <div className="fact-k">Don't</div>
-                <div className="fact-v">Web3, fintech</div>
-              </div>
+              {facts.map((f) => (
+                <div key={f.label} className="fact">
+                  <div className="fact-k">{f.label}</div>
+                  <div className="fact-v">{f.value}</div>
+                </div>
+              ))}
             </div>
           </div>
           <div>
             <div className="portrait">
-              <PortraitIllustration />
+              {profile?.portraitUrl ? (
+                <img src={profile.portraitUrl} alt={profile.name || 'Portrait'} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              ) : (
+                <PortraitIllustration />
+              )}
             </div>
             <div style={{ marginTop: 16, display: 'grid', gap: 10 }}>
               <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
@@ -81,9 +84,11 @@ export function AboutPage() {
                 <span className="pill plum">Gamedev</span>
                 <span className="pill lime">Pixel art</span>
               </div>
-              <div className="mono" style={{ color: 'var(--muted)', marginTop: 8 }}>
-                Photo coming soon — placeholder for now
-              </div>
+              {!profile?.portraitUrl && (
+                <div className="mono" style={{ color: 'var(--muted)', marginTop: 8 }}>
+                  Photo coming soon — placeholder for now
+                </div>
+              )}
             </div>
           </div>
         </div>

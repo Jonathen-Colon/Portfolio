@@ -1,7 +1,3 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import ContentAdmin from "../components/portfolio/ContentAdmin";
+return Astro.redirect("/_emdash/admin/", 302);
 ---
-<BaseLayout title="Studio — Jon Colon" description="Private studio desk for portfolio content.">
-  <ContentAdmin client:only="react" />
-</BaseLayout>

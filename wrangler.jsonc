@@ -1,11 +1,29 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
+  // Existing Worker: serves joncolon.dev, www.joncolon.dev, jonathencolon.com, www.jonathencolon.com
+  // (custom domains are managed in the Cloudflare dashboard).
   "name": "portfolio",
+  "main": "./src/worker.ts",
   "compatibility_date": "2026-09-30",
+  "compatibility_flags": ["nodejs_compat"],
+  // EmDash content database.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "portfolio-emdash",
+      "database_id": "e1a347a0-6cd5-433e-8066-a3e2fc98de3a",
+    },
+  ],
+  // EmDash media library (thumbnails, images in posts, resume PDF).
+  "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "portfolio-media" }],
+  // Astro sessions (admin sign-in).
+  "kv_namespaces": [{ "binding": "SESSION", "id": "dcdf923fb71742bea7add9362f7aa5a5" }],
+  // Scheduled publishing and EmDash maintenance.
+  "triggers": { "crons": ["* * * * *"] },
+  "vars": {
+    // Passkeys are bound to this origin; sign in to the admin at https://joncolon.dev/_emdash/admin/.
+    "EMDASH_SITE_URL": "https://joncolon.dev",
+  },
+  "observability": { "enabled": true },
   "previews": {},
-  "assets": {
-    "directory": "./dist",
-    "html_handling": "drop-trailing-slash",
-    "not_found_handling": "404-page"
-  }
 }

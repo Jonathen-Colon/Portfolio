@@ -1,7 +1,11 @@
 import React from 'react';
 import { pageToPath } from './routes';
+import { PROFILE_DEFAULTS, pick, type Profile } from '../../data/profile';
 
-export function Footer({ go }: { go: (id: string) => void }) {
+export function Footer({ go, profile = null }: { go: (id: string) => void; profile?: Profile | null }) {
+  const email = pick(profile?.contactEmail, PROFILE_DEFAULTS.contactEmail);
+  const socials = pick(profile?.socialLinks, PROFILE_DEFAULTS.socialLinks);
+  const headline = pick(profile?.footerHeadline, PROFILE_DEFAULTS.footerHeadline).split('\n');
   function navLink(pageId: string, label: string) {
     return (
       <a
@@ -22,12 +26,15 @@ export function Footer({ go }: { go: (id: string) => void }) {
         <div className="footer-grid">
           <div>
             <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 44, letterSpacing: '-0.03em', lineHeight: 0.95 }}>
-              Making stuff
-              <br />
-              since 2018.
+              {headline.map((line, i) => (
+                <React.Fragment key={i}>
+                  {i > 0 && <br />}
+                  {line}
+                </React.Fragment>
+              ))}
             </div>
             <div className="mono" style={{ color: 'var(--muted)', marginTop: 18 }}>
-              © {new Date().getFullYear()} Jon Colon · Southern MA
+              © {new Date().getFullYear()} {pick(profile?.name, 'Jon Colon')} · {pick(profile?.location, PROFILE_DEFAULTS.location)}
             </div>
           </div>
           <div>
@@ -51,28 +58,20 @@ export function Footer({ go }: { go: (id: string) => void }) {
             <h4>Elsewhere</h4>
             <ul>
               <li>
-                <a href="mailto:jonathen@joncolon.dev">Email</a>
+                <a href={`mailto:${email}`}>Email</a>
               </li>
-              <li>
-                <a href="https://x.com/oobijohnson" target="_blank" rel="noreferrer">
-                  X / Twitter
-                </a>
-              </li>
-              <li>
-                <a href="https://github.com/Jonathen-Colon" target="_blank" rel="noreferrer">
-                  GitHub
-                </a>
-              </li>
-              <li>
-                <a href="https://www.linkedin.com/in/jonathen-colon-51956789/" target="_blank" rel="noreferrer">
-                  LinkedIn
-                </a>
-              </li>
+              {socials.map((l) => (
+                <li key={l.url}>
+                  <a href={l.url} target="_blank" rel="noreferrer">
+                    {l.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
-          <span>Hand-built with Astro, React and a lot of coffee</span>
+          <span>{pick(profile?.footerNote, PROFILE_DEFAULTS.footerNote)}</span>
         </div>
       </div>
     </footer>
